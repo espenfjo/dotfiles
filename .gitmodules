@@ -1,4 +1,3 @@
 [submodule "private"]
 	path = private
 	url = git@github.com:espenfjo/private-dotfiles.git
-	branch = master
