@@ -45,7 +45,6 @@
                           markdown-mode
                           marmalade
                           nginx-mode
-			  pde
                           puppet-mode
                           rainbow-delimiters
                           smex
@@ -228,7 +227,7 @@
 (setq kill-whole-line t)
 
 ;; Load some extra PERL stuff
-(add-to-list 'load-path "~/.emacs.d/elisp/pde/")
+;;(add-to-list 'load-path "~/.emacs.d/elisp/pde/")
 (require 'cperl-mode)
 (require 'rainbow-delimiters)
 (require 'perltidy-mode)
