@@ -1,0 +1,11 @@
+[user]
+	name = Espen Fjellvær Olsen
+	email = espen@mrfjo.org
+[color]
+	ui = auto
+[review "review.cyanogenmod.com"]
+	username = espenfjo
+[http]
+	sslVerify = false
+[push]
+	default = simple
