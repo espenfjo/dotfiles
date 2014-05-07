@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+_scs_col="\e[0;32m";
+_wrn_col='\e[1;31m';
+_trn_col='\e[0;33m'
+# Check that xclip is installed.
+
+platform=$(uname)
+if [[ "${platform}" == Linux ]]; then
+    tardown="tar cJf - --exclude-vcs --exclude=blib --exclude=spec --exclude=pyc"
+elif [[ "${platform}" == Darwin ]]; then
+    tardown="gtar cJf - --exclude-vcs --exclude=blib --exclude=spec --exclude=pyc"    
+fi
+
+xclip -silent < /dev/null &> /dev/null
+xclip_status=$?
+# We do not have xclip/clipboard. Let us just output xclip
+if [[ $xclip_status > 0 ]]; then
+    echo -e "$_wrn_col""'xclip' not installed or not functioning. Outputting to console\e[0m"
+fi
+
+# If no tty, data should be available on stdin
+if ! [[ "$( tty )" == /dev/* ]]; then
+    input="$(< /dev/stdin)"
+    # Else, fetch input from params
+else
+    if [[ -d $* || -f $* ]]; then
+        input=$(${tardown} $* | base64 -w0)
+    else
+        echo "$_wrn_col""No such file or directory: ${*}\e[0m"
+        exit 1
+    fi
+fi
+if [ -z "$input" ]; then  # If no input, print usage message.
+    echo "Copies a string to the clipboard."
+    echo "Usage: cb <string>"
+    echo "       echo <string> | cb"
+else
+    # Copy input to clipboard
+    if [[ $xclip_status == 0 ]]; then	
+	echo -n "echo -n $input | base64 -d | tar xvJf -" | xclip -selection c
+	echo -e "$_scs_col""Copied to clipboard:\e[0m $*"
+	
+    else
+	echo "echo -n $input | base64 -d | tar xvJf -"
+    fi
+
+    # Truncate text for status
+    if [ ${#input} -gt 80 ]; then input="$(echo $* | cut -c1-80)$_trn_col...\e[0m"; fi
+    # Print status.
+fi
+
