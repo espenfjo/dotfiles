@@ -1,7 +1,6 @@
 alias ls='ls -C'
 alias p='ssh p'
 alias stow='stow --ignore ".DS_Store"'
-alias dotfiles='stow -d ~/.dotfiles public private'
 alias GET="lwp-request -m GET"
 
 . .bashrc

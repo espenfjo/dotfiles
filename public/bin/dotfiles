@@ -1,0 +1,26 @@
+#!/bin/bash
+
+dotfiles_folder=$HOME/.dotfiles
+
+log() {
+    if $verbose; then
+	echo $@
+    fi
+}
+
+if ! type stow &> /dev/null; then
+    echo "'stow' not installed. Cannot continue"
+exit 1
+fi
+
+if [ -d $dotfiles_folder ]; then   
+    log "Updating dotfiles"
+    (cd $dotfiles_folder;git pull -q &>/dev/null)
+else
+    log "Installing dotfiles"
+    git clone -q git@github.com:espenfjo/dotfiles.git $HOME/.dotfiles
+fi
+stow -d $HOME/.dotfiles public private
+log "Dotfiles updated"
+
+
