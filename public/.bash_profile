@@ -1,4 +1,4 @@
-alias ls='ls -C'
+alias ls='ls --color'
 alias p='ssh p'
 alias stow='stow --ignore ".DS_Store"'
 alias GET="lwp-request -m GET"

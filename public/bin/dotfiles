@@ -1,26 +1,77 @@
 #!/bin/bash
 
 dotfiles_folder=$HOME/.dotfiles
-
+action=$1
+GIT=$(type -p git)
 log() {
     if $verbose; then
 	echo $@
     fi
 }
 
-if ! type stow &> /dev/null; then
-    echo "'stow' not installed. Cannot continue"
-exit 1
+update() {
+    if ! type stow &> /dev/null; then
+	echo "'stow' not installed. Cannot continue"
+	exit 1
+    fi
+
+    if [ -d $dotfiles_folder ]; then
+	log "Updating dotfiles"
+	(
+	    diff
+	    git pull -q &>/dev/null
+	    cd $dotfiles_folder
+	    git submodule update
+
+	)
+    else
+	log "Installing dotfiles"
+	git clone -q git@github.com:espenfjo/dotfiles.git $HOME/.dotfiles
+	(
+	    cd $dotfiles_folder
+	    git submodule init
+	    git submodule update
+	)
+    fi
+    stow -d $HOME/.dotfiles public private
+    log "Dotfiles updated"
+}
+
+
+diff() {
+    log "Checking diff"
+    (
+	cd $dotfiles_folder
+	git fetch --all &>/dev/null
+	git diff origin/master
+    )
+}
+
+git() {
+    shift
+    action=$@
+    (
+	cd $dotfiles_folder
+	echo $@
+	$GIT $@
+    )
+}
+
+usage() {
+  [[ $# -gt 0 ]] && log "${@}"
+  local format="  %-8s %s\n"
+  echo "Usage: $0 [help] <action> [options]"
+  echo
+  echo "Available actions:"
+  printf "${format}" "help" "Show usage."
+  printf "${format}" "diff" "Show diff between local and remote repo."
+  printf "${format}" "update" "Update (or install) dotfiles from repo."
+  printf "${format}" "git" "Run git commands on dotfiles repo. Eg. add, commit etc."
+  exit
+}
+
+if [[ ! -z $action ]] && [[ $action != 'help' ]]; then
+    $action $@
+    exit
 fi
-
-if [ -d $dotfiles_folder ]; then   
-    log "Updating dotfiles"
-    (cd $dotfiles_folder;git pull -q &>/dev/null)
-else
-    log "Installing dotfiles"
-    git clone -q git@github.com:espenfjo/dotfiles.git $HOME/.dotfiles
-fi
-stow -d $HOME/.dotfiles public private
-log "Dotfiles updated"
-
-
+usage
