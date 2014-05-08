@@ -33,7 +33,8 @@ update() {
 	    $GIT submodule update
 	)
     fi
-    stow -d $HOME/.dotfiles public private
+    stow -d $HOME/.dotfiles public
+    stow -d $HOME/.dotfiles private
     log "Dotfiles updated"
 }
 
