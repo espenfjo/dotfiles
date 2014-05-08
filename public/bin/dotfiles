@@ -19,18 +19,18 @@ update() {
 	log "Updating dotfiles"
 	(
 	    diff
-	    git pull -q &>/dev/null
+	    $GIT pull -q &>/dev/null
 	    cd $dotfiles_folder
-	    git submodule update
+	    $GIT submodule update
 
 	)
     else
 	log "Installing dotfiles"
-	git clone -q git@github.com:espenfjo/dotfiles.git $HOME/.dotfiles
+	$GIT clone -q $GIT@$GIThub.com:espenfjo/dotfiles.$GIT $HOME/.dotfiles
 	(
 	    cd $dotfiles_folder
-	    git submodule init
-	    git submodule update
+	    $GIT submodule init
+	    $GIT submodule update
 	)
     fi
     stow -d $HOME/.dotfiles public private
@@ -42,8 +42,8 @@ diff() {
     log "Checking diff"
     (
 	cd $dotfiles_folder
-	git fetch --all &>/dev/null
-	git diff origin/master
+	$GIT fetch --all &>/dev/null
+	$GIT diff origin/master
     )
 }
 
@@ -52,7 +52,6 @@ git() {
     action=$@
     (
 	cd $dotfiles_folder
-	echo $@
 	$GIT $@
     )
 }
@@ -74,4 +73,4 @@ if [[ ! -z $action ]] && [[ $action != 'help' ]]; then
     $action $@
     exit
 fi
-usage
+update
