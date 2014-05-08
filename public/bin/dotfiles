@@ -26,7 +26,7 @@ update() {
 	)
     else
 	log "Installing dotfiles"
-	$GIT clone -q $GIT@$GIThub.com:espenfjo/dotfiles.$GIT $HOME/.dotfiles
+	$GIT clone -q git@github.com:espenfjo/dotfiles.git $HOME/.dotfiles
 	(
 	    cd $dotfiles_folder
 	    $GIT submodule init
