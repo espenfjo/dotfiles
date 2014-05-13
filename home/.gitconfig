@@ -8,4 +8,7 @@
 [http]
 	sslVerify = false
 [push]
-	default = simple
+	default = tracking
+[pdt]
+	gitlabtoken = QYSK6KFtuT3Xijh9SK9W
+	setup = true

@@ -56,6 +56,9 @@ source $ZSH/oh-my-zsh.sh
 export LD_LIBRARY_PATH="/opt/rh/ruby193/root/usr/lib64"
 export PATH="$HOME/bin:/opt/rh/ruby193/root/usr/bin:/Users/espen/perl5/bin:/Users/espen/android-sdk-macosx/platform-tools:/Users/espen/bin:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/usr/local/CrossPack-AVR/bin:/usr/local/MacGPG2/bin:/usr/local/share/npm/bin"
 
+if [ -d $HOME/git/puppet-developer-tools ]; then
+    export PATH=$PATH:$HOME/git/puppet-developer-tools
+fi
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
