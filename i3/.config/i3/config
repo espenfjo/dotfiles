@@ -42,7 +42,7 @@ bindsym $modkey+Return exec --no-startup-id wezterm
 bindsym $modkey+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $modkey+d exec --no-startup-id rofi -show run
+bindsym $modkey+d exec --no-startup-id rofi -show drun
 # bindsym $modkey+d exec --no-startup-id dmenu_run
 
 bindsym $modkey+F6 exec --no-startup-id brightnessctl set +5%
