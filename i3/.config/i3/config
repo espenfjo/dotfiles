@@ -256,7 +256,7 @@ set $crust #232634
 # set $crust #181926
 
 # Class                 border          backgr      text            indic
-client.focused           $lavender $base $text  $rosewater $lavender
+client.focused           $base     $base $text  $rosewater $base
 client.focused_inactive  $overlay0 $base $text  $rosewater $overlay0
 client.unfocused         $overlay0 $base $text  $rosewater $overlay0
 client.urgent            $peach    $base $peach $overlay0  $peach
