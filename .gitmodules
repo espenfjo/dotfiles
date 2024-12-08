@@ -1,0 +1,6 @@
+[submodule "emacs/.config/emacs"]
+	path = emacs/.config/emacs
+	url = https://github.com/doomemacs/doomemacs
+[submodule "zsh/.config/zsh/.antidote"]
+	path = zsh/.config/zsh/.antidote
+	url = https://github.com/mattmc3/antidote
